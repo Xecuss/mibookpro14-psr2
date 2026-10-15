@@ -1,0 +1,32 @@
+[
+  {
+    "file": "0001-HACK-debugfs-dump-PSR2-SU-runtime-registers.patch",
+    "original_sha256": "2bb4e0fa1340e7ada8803fa88196c1c978e49d2476e1c594fb80f20dede0eb5d",
+    "diff_sha256": "551212bc763fa33cfe317c93fcd0262c8869752ba1c81a050f27e2e4812bd718",
+    "note": "Commit message refreshed; diff body unchanged from tested patch."
+  },
+  {
+    "file": "0002-HACK-add-xe.psr2_idle_frames-param.patch",
+    "original_sha256": "298a366a5ad0fe5f6290590bfd2ae9294a87406cc8cf22b9d63a6769e395ba50",
+    "diff_sha256": "04c769e1b1b9f56c0275bdc9ffc94d58169e6048fc6e906e1ae313157a7973eb",
+    "note": "Commit message refreshed; diff body unchanged from tested patch."
+  },
+  {
+    "file": "0003-HACK-add-xe.vrr_ctl_bit26-param.patch",
+    "original_sha256": "588349a229b6119a0c7d385466a150d76d437f29f88d21a32f55c954844b9b4a",
+    "diff_sha256": "9af81d19a63b55c321c3a8a1e850543642bb9372123e30105fb28d0c58a44a62",
+    "note": "Commit message refreshed; diff body unchanged from tested patch."
+  },
+  {
+    "file": "0005-HACK-add-xe.psr2_su_area_max_lines-param.patch",
+    "original_sha256": "a212917b9570f7f2e1f02cde13ccda185492e61955065b55d122ed8232163380",
+    "diff_sha256": "1cf1a327cacb2acd26afe42bb3ce25d97685c386f387ee50c34cfcda2df08acb",
+    "note": "Commit message refreshed; diff body unchanged from tested patch."
+  },
+  {
+    "file": "0006-HACK-add-xe.psr2_su_y_alignment-experiment.patch",
+    "original_sha256": "2759cd3013390e3be9944be96e31d2b031132d2a7866ebfc91e1e695ba77c0ec",
+    "diff_sha256": "fab06870bfa675a6101fc3d60ce46560e08389d59d728de17186168474c5ea6d",
+    "note": "Commit message refreshed; diff body unchanged from tested patch."
+  }
+]

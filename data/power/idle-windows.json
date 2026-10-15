@@ -1,0 +1,395 @@
+{
+  "id": "idle-windows",
+  "workload": "idle",
+  "mode": "Windows reference",
+  "grid": null,
+  "notes": {
+    "sampling": "relative monotonic time, all samples retained; power W and energy Wh converted from original units",
+    "scope": "Whole-system battery telemetry, one run per configuration",
+    "source_id": "windows-idle-power-20261015-132237-f81a1f",
+    "source_samples_sha256": "67a73d2d2d8a5a8881482137709775c714895e07e113f3af2db3f3ad2f3372b9",
+    "source_summary_sha256": "28c7969b5595e800d27cf95ac9312bdef390423e439965b62082173df3be5f38",
+    "raw_capture_metadata": "Not redistributed; per-device identifiers and private paths omitted by field selection",
+    "brightness_note": "Windows brightness level 53; not physical nits or comparable percentage",
+    "limitations": "Only 5 distinct power readings; actual luminance/HDR not matched to Linux; PSR not sampled by power collector"
+  },
+  "expected": {
+    "samples": 37,
+    "duration_s": 180.0011668,
+    "time_weighted_mean_w": 4.361399999719613,
+    "energy_drop_wh": 0.25200000000000244,
+    "energy_based_mean_w": 5.039967329811825
+  },
+  "samples": [
+    {
+      "elapsed_s": 0.0,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 5.0009489,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 10.0065981,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 15.023647799999999,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 19.994325800000002,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 25.0036466,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 30.0113827,
+      "power_w": 5.774,
+      "energy_wh": 50.807,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 34.9947039,
+      "power_w": 4.123,
+      "energy_wh": 50.697,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 39.9851959,
+      "power_w": 4.123,
+      "energy_wh": 50.697,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 44.9876222,
+      "power_w": 4.123,
+      "energy_wh": 50.697,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 50.0123132,
+      "power_w": 4.123,
+      "energy_wh": 50.697,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 54.9951729,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 59.9936,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 64.9883555,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 70.0008871,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 74.99590069999999,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 80.00084559999999,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 84.991463,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 89.9855913,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 94.9882695,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 100.0071845,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 104.9865927,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 110.0066418,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 114.9878166,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 120.0049492,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 124.9954029,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 130.00462499999998,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 134.9890356,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 140.0089157,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 144.99433679999999,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 149.99868239999998,
+      "power_w": 4.038,
+      "energy_wh": 50.665,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 155.01437919999998,
+      "power_w": 4.105,
+      "energy_wh": 50.571,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 159.9777816,
+      "power_w": 4.105,
+      "energy_wh": 50.571,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 165.0072367,
+      "power_w": 4.105,
+      "energy_wh": 50.571,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 169.99032519999997,
+      "power_w": 4.105,
+      "energy_wh": 50.571,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 175.01110269999998,
+      "power_w": 3.871,
+      "energy_wh": 50.555,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    },
+    {
+      "elapsed_s": 180.0011668,
+      "power_w": 3.871,
+      "energy_wh": 50.555,
+      "discharging": true,
+      "external_online": false,
+      "brightness": [
+        53
+      ]
+    }
+  ]
+}

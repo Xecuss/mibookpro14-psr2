@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Patch context contains significant leading spaces before kernel tabs.
+*.patch -whitespace

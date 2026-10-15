@@ -1,0 +1,54 @@
+From: PSR2 investigation <psr2-test@local>
+Subject: [PATCH] 0003-HACK-add-xe.vrr_ctl_bit26-param
+
+Historical opt-in bit-26 experiment. The recommended configuration leaves
+this parameter false. False does not force the hardware bit to zero; raw
+values vary. Bit semantics and causal role remain unproven.
+
+Local workaround/instrumentation; not an upstream submission.
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 54c2941..0cf1519 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -123,6 +123,10 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
+ intel_display_param_named_unsafe(psr2_idle_frames, int, 0400,
+ 	"Override PSR2 idle frames (-1=auto [default], 0-15=force)");
+ 
++intel_display_param_named_unsafe(vrr_ctl_bit26, bool, 0400,
++	"Set unknown TRANS_VRR_CTL bit 26 on display 30+ "
++	"(0=off [default], 1=set like Windows)");
++
+ intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+ 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index a6f2b98..f7814ac 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -49,6 +49,7 @@ struct drm_printer;
+ 	param(int, enable_panel_replay, -1, 0600) \
+ 	param(bool, psr_safest_params, false, 0400) \
+ 	param(int, psr2_idle_frames, -1, 0400) \
++	param(bool, vrr_ctl_bit26, false, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+ 	param(int, enable_dmc_wl, -1, 0400) \
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index aa587be..7d1e5bf 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -591,6 +591,11 @@ static u32 trans_vrr_ctl(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 
++	/* HACK: set undocumented bit 26 like Windows does, for #7677 debug */
++	if (display->params.vrr_ctl_bit26 && DISPLAY_VER(display) >= 30)
++		return VRR_CTL_FLIP_LINE_EN | REG_BIT(26) |
++			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
++
+ 	if (DISPLAY_VER(display) >= 14)
+ 		return VRR_CTL_FLIP_LINE_EN |
+ 			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
+-- 
+2.49.0

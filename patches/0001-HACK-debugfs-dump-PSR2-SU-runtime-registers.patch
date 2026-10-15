@@ -1,0 +1,63 @@
+From: PSR2 investigation <psr2-test@local>
+Subject: [PATCH] 0001-HACK-debugfs-dump-PSR2-SU-runtime-registers
+
+Read-only instrumentation from the tested investigation stack. Register
+0x60914 is removed on this platform: retain raw values only, never decode
+its old semantics. Pipe-A offsets are specific to the tested configuration.
+
+Local workaround/instrumentation; not an upstream submission.
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 8712810..b56c9d3 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -4425,6 +4425,47 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp,
+ 
+ 		seq_printf(m, "PSR2 selective fetch: %s\n",
+ 			   str_enabled_disabled(psr->psr2_sel_fetch_enabled));
++
++		/* HACK: dump selective-fetch runtime registers for #7677 debug */
++		{
++			static const struct {
++				const char *name;
++				u32 offset;
++			} su_regs[] = {
++				{ "MAN_TRK_CTL",		0x60910 },
++				{ "PSR2_SU_STATUS",		0x60914 },
++				{ "PSR2_CTL",			0x60900 },
++				{ "TRANS_VRR_CTL",		0x60420 },
++				{ "SET_CONTEXT_LATENCY",	0x6007c },
++				{ "ALPM_CTL",			0x60950 },
++				{ "ALPM_CTL2",			0x60954 },
++				{ "SEL_FETCH_CUR_CTL",		0x70880 },
++				{ "SEL_FETCH_PLANE1_CTL",	0x70890 },
++				{ "SEL_FETCH_PLANE1_POS",	0x70894 },
++				{ "SEL_FETCH_PLANE1_SIZE",	0x70898 },
++				{ "SEL_FETCH_PLANE1_OFFSET",	0x7089c },
++				{ "SEL_FETCH_PLANE2_CTL",	0x708b0 },
++				{ "SEL_FETCH_PLANE2_POS",	0x708b4 },
++				{ "SEL_FETCH_PLANE2_SIZE",	0x708b8 },
++				{ "SEL_FETCH_PLANE2_OFFSET",	0x708bc },
++				{ "SEL_FETCH_PLANE5_CTL",	0x70920 },
++				{ "SEL_FETCH_PLANE5_POS",	0x70924 },
++				{ "SEL_FETCH_PLANE5_SIZE",	0x70928 },
++				{ "SEL_FETCH_PLANE5_OFFSET",	0x7092c },
++				{ "SEL_FETCH_PLANE6_CTL",	0x70940 },
++				{ "SEL_FETCH_PLANE6_POS",	0x70944 },
++				{ "SEL_FETCH_PLANE6_SIZE",	0x70948 },
++				{ "SEL_FETCH_PLANE6_OFFSET",	0x7094c },
++			};
++			int i;
++
++			seq_puts(m, "SU runtime registers (pipe A offsets):\n");
++			for (i = 0; i < ARRAY_SIZE(su_regs); i++)
++				seq_printf(m, "  %-24s 0x%05x = 0x%08x\n",
++					   su_regs[i].name, su_regs[i].offset,
++					   intel_de_read(display,
++							 _MMIO(su_regs[i].offset)));
++		}
+ 	}
+ 
+ unlock:
+-- 
+2.49.0

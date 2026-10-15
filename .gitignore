@@ -1,0 +1,20 @@
+# Local captures and machine-specific build/signing files
+/results/
+/build/
+/.state/
+__pycache__/
+*.py[cod]
+*.ko
+*.ko.*
+*.o
+*.rpm
+*.dmp
+*.sys
+*.exe
+*.priv
+*.pem
+*.key
+*.der
+*.crt
+*.zip
+*.tar.*

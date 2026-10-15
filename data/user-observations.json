@@ -1,0 +1,38 @@
+{
+  "recommended_grid": 104,
+  "selection_date": "2026-10-16",
+  "selection_reason": "User prefers Windows-derived candidate; Windows 104-line region is evidence, not proof of hardware granularity or identical OS algorithm. 80 also works; power data does not establish a winner.",
+  "manual_grid_tests_without_capture": [
+    {
+      "requested": 52,
+      "predicted_effective": 52,
+      "result": "corruption"
+    },
+    {
+      "requested": 26,
+      "predicted_effective": 4,
+      "result": "corruption; 26 rejected under known native4 constraint"
+    },
+    {
+      "requested": 208,
+      "predicted_effective": 208,
+      "result": "corruption"
+    }
+  ],
+  "manual_test_conditions": "User confirmed y_alignment changed and old CFF gate off; no capture logs for these three. Not monotonic stability proof.",
+  "visual_tests": {
+    "104": {
+      "mouse": "pass",
+      "typing": "pass",
+      "bottom": "pass",
+      "suspend_resume": "pass"
+    },
+    "80": {
+      "mouse": "pass",
+      "typing": "pass",
+      "bottom": "pass",
+      "suspend_resume": "not tested"
+    }
+  },
+  "upstream": "No upstream submission, bug#2 follow-up or quirk expansion planned."
+}

@@ -1,0 +1,55 @@
+From: PSR2 investigation <psr2-test@local>
+Subject: [PATCH] 0005-HACK-add-xe.psr2_su_area_max_lines-param
+
+Historical CFF threshold experiment: height > N requests full_update,
+not splitting or clipping to N lines. Recommended setting is -1 (off).
+Full-screen partial updates have also been captured on Windows; earlier
+claims that Linux always damages the whole screen are not conclusions.
+
+Local workaround/instrumentation; not an upstream submission.
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 0cf1519..a3b2c4d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -126,5 +126,9 @@ intel_display_param_named_unsafe(vrr_ctl_bit26, bool, 0400,
+ 	"Set unknown TRANS_VRR_CTL bit 26 on display 30+ "
+ 	"(0=off [default], 1=set like Windows)");
+ 
++intel_display_param_named_unsafe(psr2_su_area_max_lines, int, 0400,
++	"Force full-frame PSR2 update when SU area height exceeds N lines "
++	"(-1=off [default], 0=always full frame, N=max SU lines)");
++
+ intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+ 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index f7814ac..b0c5d21 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -51,5 +51,6 @@ struct drm_printer;
+ 	param(int, psr2_idle_frames, -1, 0400) \
+ 	param(bool, vrr_ctl_bit26, false, 0400) \
++	param(int, psr2_su_area_max_lines, -1, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+ 	param(int, enable_dmc_wl, -1, 0400) \
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 7d1e5bf..c4a0f2e 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3155,7 +3155,13 @@ skip_sel_fetch_set_loop:
+ 	if (full_update)
+ 		clip_area_update(&crtc_state->psr2_su_area, &display_area,
+ 				 &display_area);
+ 
++	/* HACK: force full update when SU area is too large, for #7677 debug */
++	if (!full_update && display->params.psr2_su_area_max_lines >= 0 &&
++	    drm_rect_height(&crtc_state->psr2_su_area) >
++	    display->params.psr2_su_area_max_lines)
++		full_update = true;
++
+ 	psr2_man_trk_ctl_calc(crtc_state, full_update);
+ 	crtc_state->pipe_srcsz_early_tpt =
+ 		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
+-- 
+2.49.0

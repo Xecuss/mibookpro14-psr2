@@ -1,0 +1,728 @@
+{
+  "id": "idle-104",
+  "workload": "idle",
+  "mode": "PSR2",
+  "grid": 104,
+  "notes": {
+    "sampling": "relative monotonic time, all samples retained; power W and energy Wh converted from original units",
+    "scope": "Whole-system battery telemetry, one run per configuration",
+    "source_id": "idle-power-20261015-101119-9khxcxdi",
+    "source_samples_sha256": "e756f42af8f5ce6a0a16bc9a3f4fc01126f9b3cac88394e56bf7031183491fce",
+    "source_summary_sha256": "5b85b7d46436da358a494fd154720e7ef04b8f1f11951e4b22ed1623cb4c0f58",
+    "raw_capture_metadata": "Not redistributed; per-device identifiers and private paths omitted by field selection",
+    "brightness_note": "Linux backlight 102/max704, not physical nits",
+    "limitations": "Single run; HDR/physical luminance and background differences prevent exact cross-OS comparisons"
+  },
+  "expected": {
+    "samples": 37,
+    "duration_s": 179.9998194289999,
+    "time_weighted_mean_w": 3.9581392187263926,
+    "energy_drop_wh": 0.18900000000000006,
+    "energy_based_mean_w": 3.7800037919948073
+  },
+  "samples": [
+    {
+      "elapsed_s": 0.0,
+      "power_w": 3.775,
+      "energy_wh": 40.573,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.11,
+        0.34,
+        0.38
+      ]
+    },
+    {
+      "elapsed_s": 4.999804150000045,
+      "power_w": 3.87,
+      "energy_wh": 40.573,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.1,
+        0.34,
+        0.38
+      ]
+    },
+    {
+      "elapsed_s": 9.999787723000054,
+      "power_w": 3.711,
+      "energy_wh": 40.557,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.09,
+        0.33,
+        0.37
+      ]
+    },
+    {
+      "elapsed_s": 14.999847606000003,
+      "power_w": 4.698,
+      "energy_wh": 40.557,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.08,
+        0.32,
+        0.37
+      ]
+    },
+    {
+      "elapsed_s": 19.99981561300001,
+      "power_w": 3.839,
+      "energy_wh": 40.557,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.08,
+        0.32,
+        0.37
+      ]
+    },
+    {
+      "elapsed_s": 24.99980967200031,
+      "power_w": 3.807,
+      "energy_wh": 40.541,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.07,
+        0.31,
+        0.37
+      ]
+    },
+    {
+      "elapsed_s": 29.99983330000009,
+      "power_w": 3.998,
+      "energy_wh": 40.541,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.06,
+        0.31,
+        0.36
+      ]
+    },
+    {
+      "elapsed_s": 34.99982802699992,
+      "power_w": 4.253,
+      "energy_wh": 40.541,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.06,
+        0.3,
+        0.36
+      ]
+    },
+    {
+      "elapsed_s": 39.99984208899991,
+      "power_w": 3.711,
+      "energy_wh": 40.526,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.3,
+        0.36
+      ]
+    },
+    {
+      "elapsed_s": 44.99981571500007,
+      "power_w": 4.237,
+      "energy_wh": 40.526,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.29,
+        0.36
+      ]
+    },
+    {
+      "elapsed_s": 49.99980734299993,
+      "power_w": 3.807,
+      "energy_wh": 40.526,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.29,
+        0.36
+      ]
+    },
+    {
+      "elapsed_s": 54.9998165530003,
+      "power_w": 3.711,
+      "energy_wh": 40.51,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.04,
+        0.28,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 59.99979820200019,
+      "power_w": 4.155,
+      "energy_wh": 40.51,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.04,
+        0.28,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 64.99983466000026,
+      "power_w": 3.823,
+      "energy_wh": 40.51,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.03,
+        0.27,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 69.99978887400016,
+      "power_w": 3.694,
+      "energy_wh": 40.494,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.03,
+        0.27,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 74.99982019000004,
+      "power_w": 4.396,
+      "energy_wh": 40.494,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.03,
+        0.26,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 79.99982917700004,
+      "power_w": 3.934,
+      "energy_wh": 40.494,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.03,
+        0.26,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 84.999824666,
+      "power_w": 4.108,
+      "energy_wh": 40.479,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.02,
+        0.25,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 89.99981650800032,
+      "power_w": 3.806,
+      "energy_wh": 40.479,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.1,
+        0.27,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 94.99979170400024,
+      "power_w": 4.854,
+      "energy_wh": 40.479,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.09,
+        0.26,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 99.99981401500031,
+      "power_w": 3.773,
+      "energy_wh": 40.463,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.17,
+        0.27,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 104.99980115199992,
+      "power_w": 4.172,
+      "energy_wh": 40.463,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.15,
+        0.27,
+        0.35
+      ]
+    },
+    {
+      "elapsed_s": 109.99979457299992,
+      "power_w": 4.188,
+      "energy_wh": 40.463,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.14,
+        0.26,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 114.99986214200021,
+      "power_w": 3.757,
+      "energy_wh": 40.447,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.13,
+        0.26,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 119.99981409399993,
+      "power_w": 3.805,
+      "energy_wh": 40.447,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.12,
+        0.25,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 124.99981125499994,
+      "power_w": 3.917,
+      "energy_wh": 40.447,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.11,
+        0.25,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 129.99980844000015,
+      "power_w": 3.71,
+      "energy_wh": 40.431,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.1,
+        0.25,
+        0.34
+      ]
+    },
+    {
+      "elapsed_s": 134.99981679999996,
+      "power_w": 4.331,
+      "energy_wh": 40.431,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.09,
+        0.24,
+        0.33
+      ]
+    },
+    {
+      "elapsed_s": 139.9998077769999,
+      "power_w": 3.725,
+      "energy_wh": 40.431,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.08,
+        0.24,
+        0.33
+      ]
+    },
+    {
+      "elapsed_s": 144.9998287159999,
+      "power_w": 3.82,
+      "energy_wh": 40.416,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.08,
+        0.23,
+        0.33
+      ]
+    },
+    {
+      "elapsed_s": 149.999847371,
+      "power_w": 3.709,
+      "energy_wh": 40.416,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.07,
+        0.23,
+        0.33
+      ]
+    },
+    {
+      "elapsed_s": 154.99984807800024,
+      "power_w": 3.757,
+      "energy_wh": 40.416,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.06,
+        0.22,
+        0.33
+      ]
+    },
+    {
+      "elapsed_s": 159.999788847,
+      "power_w": 3.773,
+      "energy_wh": 40.4,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.06,
+        0.22,
+        0.32
+      ]
+    },
+    {
+      "elapsed_s": 164.99982656199995,
+      "power_w": 4.17,
+      "energy_wh": 40.4,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.22,
+        0.32
+      ]
+    },
+    {
+      "elapsed_s": 169.99980841299998,
+      "power_w": 3.741,
+      "energy_wh": 40.4,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.21,
+        0.32
+      ]
+    },
+    {
+      "elapsed_s": 174.99979936800014,
+      "power_w": 3.721,
+      "energy_wh": 40.384,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.05,
+        0.21,
+        0.32
+      ]
+    },
+    {
+      "elapsed_s": 179.9998194289999,
+      "power_w": 4.249,
+      "energy_wh": 40.384,
+      "discharging": true,
+      "external_online": false,
+      "brightness": {
+        "intel_backlight": {
+          "brightness": 102,
+          "actual_brightness": 102,
+          "max_brightness": 704
+        }
+      },
+      "loadavg_1_5_15": [
+        0.04,
+        0.21,
+        0.32
+      ]
+    }
+  ]
+}

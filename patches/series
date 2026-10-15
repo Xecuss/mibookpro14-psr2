@@ -1,0 +1,5 @@
+0001-HACK-debugfs-dump-PSR2-SU-runtime-registers.patch
+0002-HACK-add-xe.psr2_idle_frames-param.patch
+0003-HACK-add-xe.vrr_ctl_bit26-param.patch
+0005-HACK-add-xe.psr2_su_area_max_lines-param.patch
+0006-HACK-add-xe.psr2_su_y_alignment-experiment.patch

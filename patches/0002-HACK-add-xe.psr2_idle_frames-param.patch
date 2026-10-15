@@ -1,0 +1,52 @@
+From: PSR2 investigation <psr2-test@local>
+Subject: [PATCH] 0002-HACK-add-xe.psr2_idle_frames-param
+
+Historical opt-in idle-frame experiment. The recommended configuration
+leaves this parameter at -1; overriding it did not resolve corruption.
+This patch remains in the series to preserve the tested module sources.
+
+Local workaround/instrumentation; not an upstream submission.
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 2aed110..54c2941 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -120,6 +120,9 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
+ 	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
+ 	"Default: -1 (use per-chip default)");
+ 
++intel_display_param_named_unsafe(psr2_idle_frames, int, 0400,
++	"Override PSR2 idle frames (-1=auto [default], 0-15=force)");
++
+ intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+ 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index b95ecf7..a6f2b98 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -48,6 +48,7 @@ struct drm_printer;
+ 	param(int, enable_psr, -1, 0600) \
+ 	param(int, enable_panel_replay, -1, 0600) \
+ 	param(bool, psr_safest_params, false, 0400) \
++	param(int, psr2_idle_frames, -1, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+ 	param(int, enable_dmc_wl, -1, 0400) \
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index b56c9d3..fb460b0 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -941,6 +941,10 @@ static u8 psr_compute_idle_frames(struct intel_dp *intel_dp)
+ 	if (drm_WARN_ON(display->drm, idle_frames > 0xf))
+ 		idle_frames = 0xf;
+ 
++	/* HACK: allow overriding idle frames for #7677 debug */
++	if (display->params.psr2_idle_frames >= 0)
++		idle_frames = min(display->params.psr2_idle_frames, 0xf);
++
+ 	return idle_frames;
+ }
+ 
+-- 
+2.49.0

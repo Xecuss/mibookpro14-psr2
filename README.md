@@ -75,7 +75,7 @@ python3 scripts/verify-data.py
 - [简要调查过程](docs/HISTORY.md)：保留关键转折，完整实验日志不随仓库发布。
 - [复测方法](docs/TESTING.md)：两步状态采集与有声音提示的4分钟视频功耗采集。
 - [补丁说明](patches/README.md)：保持实机测试过的0001/0002/0003/0005/0006组合，不含0004禁用quirk。
-- [GitHub发布准备](docs/PUBLISH.md)：本地仓库与目标远端说明。
+- [仓库与后续更新](docs/PUBLISH.md)：GitHub地址及后续推送说明。
 
 ## 贡献与AI使用说明
 

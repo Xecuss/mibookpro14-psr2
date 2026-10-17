@@ -1,0 +1,70 @@
+{
+  "source_id": "display-config-20261018-034943-4kL88a",
+  "capture_time": "2026-10-18T03:49:43+08:00",
+  "kernel": "7.2.10-200.fc44.x86_64",
+  "source_sha256": {
+    "environment.txt": "41f9c71313284f330aabb4c5e2514b71adaeb6375d5c974d6fa0af103b9816f7",
+    "psr-status.txt": "53e21f7f439accfb27a77d39c6261d4f01fa525436274e6a39373d793cce17fc",
+    "display-info.txt": "c27bd5dcbeaf9e0f133cb3a901c710674848dc6587a032dd31a0d5aa3aae4952",
+    "lockdown.txt": "813669221b9dc05fb4fc801e8bd8d0f0007c386d8b0fa63b02a33bd36b65edd0"
+  },
+  "parameters": {
+    "enable_psr": -1,
+    "psr2_su_area_max_lines": -1,
+    "psr2_su_y_alignment": 104,
+    "psr2_idle_frames": -1,
+    "vrr_ctl_bit26": "N"
+  },
+  "display": {
+    "width": 3120,
+    "height": 2080,
+    "refresh_hz": 120,
+    "native_y_granularity": 4,
+    "requested_y_alignment": 104,
+    "dsc": false,
+    "port_clock_khz": 540000,
+    "lanes": 4,
+    "pipe_bpp": 18,
+    "dither": true
+  },
+  "removed_register": "0x60914 omitted, removed on this platform; not decoded under old semantics",
+  "snapshots": [
+    {
+      "phase": "configuration",
+      "sample": 1,
+      "state": "DEEP_SLEEP",
+      "registers": {
+        "MAN_TRK_CTL": "0x8000081f",
+        "PSR2_CTL": "0x8000e356",
+        "TRANS_VRR_CTL": "0xa000003b",
+        "SET_CONTEXT_LATENCY": "0x00000000",
+        "ALPM_CTL": "0x14040700",
+        "ALPM_CTL2": "0x00000003",
+        "SEL_FETCH_CUR_CTL": "0x00000000",
+        "SEL_FETCH_PLANE1_CTL": "0x80000000",
+        "SEL_FETCH_PLANE1_POS": "0x00000000",
+        "SEL_FETCH_PLANE1_SIZE": "0x081f0c2f",
+        "SEL_FETCH_PLANE1_OFFSET": "0x00000000",
+        "SEL_FETCH_PLANE2_CTL": "0x00000000",
+        "SEL_FETCH_PLANE2_POS": "0x00000000",
+        "SEL_FETCH_PLANE2_SIZE": "0x00000000",
+        "SEL_FETCH_PLANE2_OFFSET": "0x00000000",
+        "SEL_FETCH_PLANE5_CTL": "0x00000000",
+        "SEL_FETCH_PLANE5_POS": "0x00000000",
+        "SEL_FETCH_PLANE5_SIZE": "0x00000000",
+        "SEL_FETCH_PLANE5_OFFSET": "0x00000000",
+        "SEL_FETCH_PLANE6_CTL": "0x00000000",
+        "SEL_FETCH_PLANE6_POS": "0x00000000",
+        "SEL_FETCH_PLANE6_SIZE": "0x00000000",
+        "SEL_FETCH_PLANE6_OFFSET": "0x00000000"
+      },
+      "partial": true,
+      "cff": false,
+      "single_full": false,
+      "y1": 0,
+      "y2_exclusive": 2080,
+      "area_kind": "full visible frame",
+      "region_note": "Partial control mode with whole-screen area retained in deep sleep; not continuous traffic, not independent proof of small-area 104 expansion or residency."
+    }
+  ]
+}

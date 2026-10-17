@@ -21,7 +21,7 @@ xe.psr2_su_y_alignment=104
 | 设备 | 小米 Book Pro 14 2026，EDO OLED 3120×2080 |
 | GPU | Intel Arc B390，8086:b080 rev04，子系统1d72:2424 |
 | Linux完整实验 | Fedora 44，7.2.9-200.fc44.x86_64，GNOME 50.5 / Wayland / xe |
-| 升级验证 | 7.2.10-200.fc44.x86_64已构建、安装并启动；用户日常无花屏，PSR状态留档待补 |
+| 升级验证 | 7.2.10-200.fc44.x86_64已安装启动，PSR2/DEEP_SLEEP与SU/plane一致性已确认；用户日常无花屏 |
 | 显示 | 120Hz；104主要功能测试200%缩放；Linux非DSC、HBR2×4、18bpp+dither |
 | Windows参考 | 驱动32.0.101.8359，3120×2080 / 120Hz |
 

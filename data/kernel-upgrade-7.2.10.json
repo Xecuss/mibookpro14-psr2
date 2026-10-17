@@ -19,6 +19,15 @@
   "loaded_custom_parameter_present": true,
   "user_observation": "无任何花屏",
   "observation_scope": "User reports no corruption in daily use; per-scenario repetitions/duration not recorded. No new per-scenario capture or power test inferred.",
-  "psr_hardware_status": "Pending new-kernel read-only display/PSR capture",
-  "power_measurement": "No new 7.2.10 power test; published measurements remain 7.2.9 reference"
+  "psr_hardware_status": "Confirmed PSR2 enabled, selective fetch enabled, DEEP_SLEEP; partial control mode, CFF off, full-screen [0,2080) SU and active plane1 agree.",
+  "power_measurement": "No new 7.2.10 power test; published measurements remain 7.2.9 reference",
+  "display_capture": {
+    "source_id": "display-config-20261018-034943-4kL88a",
+    "data_file": "registers/linux-7.2.10-grid-104.json",
+    "grid_requested": 104,
+    "native_y_granularity": 4,
+    "dsc": false,
+    "refresh_hz": 120,
+    "scope": "One full-screen retained configuration; no per-update narrow-area trace, residency percentage or new power measurement inferred."
+  }
 }

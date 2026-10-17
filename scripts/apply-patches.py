@@ -14,20 +14,29 @@ FILES = ('intel_psr.c', 'intel_vrr.c', 'intel_display_params.c',
          'intel_display_params.h', 'intel_display_debugfs.c')
 
 
+def select_profile(source, profiles):
+    for profile in profiles:
+        if all(hashlib.sha256((source / item['file']).read_bytes()).hexdigest()
+               == item['original_sha256'] for item in profile['files']):
+            return profile
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description='先在临时副本验证完整补丁组合，再应用到指定Linux源码树。')
     parser.add_argument('source', type=Path)
     parser.add_argument('--check', action='store_true', help='仅验证，不修改源码树')
     args = parser.parse_args()
     source = args.source.resolve()
-    fingerprints = json.loads((ROOT / 'patches/source-files.json').read_text())['files']
+    profiles = json.loads((ROOT / 'patches/source-files.json').read_text())['bases']
     for name in FILES:
         if not (source / DISPLAY / name).is_file():
             parser.error(f'缺少完整内核源码文件：{DISPLAY / name}')
-    for item in fingerprints:
-        digest = hashlib.sha256((source / item['file']).read_bytes()).hexdigest()
-        if digest != item['original_sha256']:
-            parser.error(f"原文件不匹配已核对的7.2.9版本或已打补丁，未修改源码：{item['file']}")
+    profile = select_profile(source, profiles)
+    if profile is None:
+        parser.error('原文件未整体匹配已登记版本，或已打补丁；源码树未修改。')
+    fingerprints = profile['files']
+    print('识别源码：' + profile['id'])
     with tempfile.TemporaryDirectory(prefix='psr2-patches-') as temp:
         stage = Path(temp)
         (stage / DISPLAY).mkdir(parents=True)

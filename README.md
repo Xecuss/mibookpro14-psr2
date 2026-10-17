@@ -20,7 +20,8 @@ xe.psr2_su_y_alignment=104
 |---|---|
 | 设备 | 小米 Book Pro 14 2026，EDO OLED 3120×2080 |
 | GPU | Intel Arc B390，8086:b080 rev04，子系统1d72:2424 |
-| Linux | Fedora 44，7.2.9-200.fc44.x86_64，GNOME 50.5 / Wayland / xe |
+| Linux完整实验 | Fedora 44，7.2.9-200.fc44.x86_64，GNOME 50.5 / Wayland / xe |
+| 升级验证 | 7.2.10-200.fc44.x86_64已构建、安装并启动；用户日常无花屏，PSR状态留档待补 |
 | 显示 | 120Hz；104主要功能测试200%缩放；Linux非DSC、HBR2×4、18bpp+dither |
 | Windows参考 | 驱动32.0.101.8359，3120×2080 / 120Hz |
 
@@ -41,6 +42,8 @@ bash scripts/collect-display-config.sh
 确认PSR2 enabled，以及 `native_y_granularity=4, requested_y_alignment=104, DSC=no`。参数读回不等于已证明网格生效，还需看SU与plane范围；本机已有该证据，见[原理与实测结论](docs/FINDINGS.md)。更换内核后需重新构建，不能直接沿用另一版本的模块。
 
 ## 已验证的表现
+
+下表与功耗数据均来自7.2.9。7.2.10保留了新内核默认关闭的VRR DC balance开关，未覆盖为旧逻辑；不能直接将旧版功耗结论视作新版实测。见[升级记录](docs/UPGRADING.md)。
 
 | 配置 | 普通鼠标 / 输入 / 底部 | 挂起恢复 | 局部更新与自刷新 |
 |---|---|---|---|
@@ -73,6 +76,7 @@ python3 scripts/verify-data.py
 - [原理、证据及未知原因](docs/FINDINGS.md)：104从哪里来、区域怎样扩张，以及为什么不能归因于物理104行分区。
 - [功耗测试](docs/POWER.md)：静置、Windows参考和1080p60视频对照。
 - [简要调查过程](docs/HISTORY.md)：保留关键转折，完整实验日志不随仓库发布。
+- [内核升级](docs/UPGRADING.md)：按目标版本重建，区分构建、启动与PSR硬件验证。
 - [复测方法](docs/TESTING.md)：两步状态采集与有声音提示的4分钟视频功耗采集。
 - [补丁说明](patches/README.md)：保持实机测试过的0001/0002/0003/0005/0006组合，不含0004禁用quirk。
 - [仓库与后续更新](docs/PUBLISH.md)：GitHub地址及后续推送说明。

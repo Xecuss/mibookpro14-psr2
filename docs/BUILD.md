@@ -2,7 +2,7 @@
 
 ## 范围
 
-实机测试目标是Fedora `7.2.9-200.fc44.x86_64` 的xe模块；5个补丁目标文件也已与原始Linux7.2.9核对。换内核需要重新适配和构建。本项目不是一个只安装kernel-devel即可make的独立驱动，也没有经验证的自动DKMS安装流程。
+完整功能与功耗实验来自Fedora `7.2.9-200.fc44.x86_64`；`7.2.10-200.fc44.x86_64`已完成匹配源码构建、签名安装及启动核对，用户报告日常无花屏，PSR硬件状态留档待补。两版各有独立的5文件输入/输出指纹，其他版本需要重新适配和构建。本项目不是一个只安装kernel-devel即可make的独立驱动，也没有经验证的自动DKMS安装流程。
 
 已有本次0006测试模块的原机器无需重复本节，启动时改回104即可。本仓库不提供二进制模块、MOK私钥或原调查中的内核源码树。
 
@@ -13,7 +13,7 @@
 以下假定你已通过发行版的内核构建流程准备好可构建树，并将 `KERNEL_SRC` 设置为它的绝对路径。仓库不自动下载源码、不改发行版配置、不关闭BTF或签名检查。
 
 ```bash
-export KERNEL_SRC=/absolute/path/to/prepared/linux-7.2.9
+export KERNEL_SRC=/absolute/path/to/prepared/linux-7.2.10
 python3 scripts/apply-patches.py --check "$KERNEL_SRC"
 python3 scripts/apply-patches.py "$KERNEL_SRC"
 ```
@@ -35,20 +35,20 @@ kernelrelease和vermagic必须匹配目标内核；应能看到psr2_su_y_alignme
 
 ## 签名与安装（Fedora实测路径）
 
-以下命令会替换当前内核优先加载的xe模块并重建initramfs；不卸载当前图形驱动、不自动重启、不修改GRUB。先确认当前启动的内核确为上述测试目标。
+以下命令为显式指定的目标内核安装优先加载的xe模块并重建其initramfs；不卸载当前图形驱动、不自动重启、不修改GRUB。可以仍运行旧内核，为已安装的新内核准备模块，不能用uname -r代替目标版本。
 
 ```bash
-test "$(uname -r)" = 7.2.9-200.fc44.x86_64
-test "$(modinfo -F vermagic build/xe.ko | cut -d ' ' -f 1)" = "$(uname -r)"
+export PSR_TARGET_KERNEL=7.2.10-200.fc44.x86_64
+test "$(modinfo -F vermagic build/xe.ko | cut -d ' ' -f 1)" = "$PSR_TARGET_KERNEL"
 ```
 
-两项都成功后继续。使用本机已有且证书已被信任的模块签名密钥；路径由使用者填写，私钥不放仓库。签名后不要再strip该文件。原始机制见[内核模块签名文档](https://docs.kernel.org/admin-guide/module-signing.html)。
+确认vermagic的版本与目标一致，且目标内核及对应kernel-devel已安装，再继续。使用本机已有且证书已被信任的模块签名密钥；路径由使用者填写，私钥不放仓库。签名后不要再strip该文件。原始机制见[内核模块签名文档](https://docs.kernel.org/admin-guide/module-signing.html)。
 
 ```bash
 export MOK_KEY=/absolute/path/to/existing/MOK.priv
 export MOK_CERT=/absolute/path/to/existing/MOK.der
 cp -- build/xe.ko build/xe-signed.ko
-sudo "/usr/src/kernels/$(uname -r)/scripts/sign-file" sha512 "$MOK_KEY" "$MOK_CERT" build/xe-signed.ko
+sudo "/usr/src/kernels/$PSR_TARGET_KERNEL/scripts/sign-file" sha512 "$MOK_KEY" "$MOK_CERT" build/xe-signed.ko
 modinfo -F signer build/xe-signed.ko
 ```
 
@@ -57,17 +57,17 @@ modinfo -F signer build/xe-signed.ko
 ```bash
 export PSR_BACKUP_DIR="$PWD/build/backup-$(date +%Y%m%d-%H%M%S)"
 mkdir -- "$PSR_BACKUP_DIR"
-uname -r > "$PSR_BACKUP_DIR/kernel-release"
-modinfo -n xe > "$PSR_BACKUP_DIR/original-module-path"
-sudo test ! -L "/lib/modules/$(uname -r)/updates/xe.ko"
-if sudo test -e "/lib/modules/$(uname -r)/updates/xe.ko"; then
-    sudo cp -- "/lib/modules/$(uname -r)/updates/xe.ko" "$PSR_BACKUP_DIR/xe-before.ko"
+printf '%s\n' "$PSR_TARGET_KERNEL" > "$PSR_BACKUP_DIR/kernel-release"
+modinfo -k "$PSR_TARGET_KERNEL" -n xe > "$PSR_BACKUP_DIR/original-module-path"
+sudo test ! -L "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko"
+if sudo test -e "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko"; then
+    sudo cp -- "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko" "$PSR_BACKUP_DIR/xe-before.ko"
     touch "$PSR_BACKUP_DIR/had-updates-override"
 fi
-sudo install -D -m 644 build/xe-signed.ko "/lib/modules/$(uname -r)/updates/xe.ko"
-sudo depmod -a "$(uname -r)"
-sudo dracut -f --kver "$(uname -r)"
-modinfo -n xe
+sudo install -D -m 644 build/xe-signed.ko "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko"
+sudo depmod -a "$PSR_TARGET_KERNEL"
+sudo dracut -f --kver "$PSR_TARGET_KERNEL"
+modinfo -k "$PSR_TARGET_KERNEL" -n xe
 ```
 
 必须确认每一步成功，且modinfo解析到刚安装的updates/xe.ko，再进入下一次启动。在GRUB临时加入 `xe.psr2_su_y_alignment=104`，删除强制PSR1及旧CFF门槛；下一次启动后按[复测方法](TESTING.md)确认实际PSR2、网格、SU与plane范围。硬件仍运行原模块，直到重启。
@@ -76,19 +76,20 @@ modinfo -n xe
 
 仅删除网格参数或设0会恢复原生区域逻辑，并不移除测试模块；花屏可能回来。需要临时停止PSR2时，GRUB加 `xe.enable_psr=1` 可退回PSR1；本机已测，但这不是PSR2修复方案。
 
-完整模块回退先填上本次保存的备份目录，再检查备份对应内核与当前内核一致。若此后又换过模块，先核对实际文件，不能用旧备份覆盖新的安装。
+完整模块回退先填上本次保存的备份目录，再检查备份对应内核与要回退的目标内核一致。若此后又换过模块，先核对实际文件，不能用旧备份覆盖新的安装。
 
 ```bash
+export PSR_TARGET_KERNEL=7.2.10-200.fc44.x86_64
 export PSR_BACKUP_DIR=/absolute/path/to/this-install-backup
-test "$(cat "$PSR_BACKUP_DIR/kernel-release")" = "$(uname -r)"
+test "$(cat "$PSR_BACKUP_DIR/kernel-release")" = "$PSR_TARGET_KERNEL"
 if test -f "$PSR_BACKUP_DIR/had-updates-override"; then
-    sudo install -D -m 644 "$PSR_BACKUP_DIR/xe-before.ko" "/lib/modules/$(uname -r)/updates/xe.ko"
+    sudo install -D -m 644 "$PSR_BACKUP_DIR/xe-before.ko" "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko"
 else
-    sudo rm -- "/lib/modules/$(uname -r)/updates/xe.ko"
+    sudo rm -- "/lib/modules/$PSR_TARGET_KERNEL/updates/xe.ko"
 fi
-sudo depmod -a "$(uname -r)"
-sudo dracut -f --kver "$(uname -r)"
-modinfo -n xe
+sudo depmod -a "$PSR_TARGET_KERNEL"
+sudo dracut -f --kver "$PSR_TARGET_KERNEL"
+modinfo -k "$PSR_TARGET_KERNEL" -n xe
 ```
 
-删除本项目的启动参数，重启后才使用回退模块；若无法进入当前图形会话，可从保留的发行版内核启动。仓库仅整理并验证说明/补丁应用，准备发布时没有执行以上系统安装、签名或回退操作。
+删除本项目的启动参数，重启后才使用回退模块；若无法进入当前图形会话，可从保留的发行版内核启动。7.2.10的安装与签名由用户执行，当前已启动该模块；回退命令未在此次升级中执行。新版本验证记录见[内核升级](UPGRADING.md)。

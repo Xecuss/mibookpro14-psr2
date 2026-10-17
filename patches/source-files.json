@@ -1,30 +1,66 @@
 {
-  "base": "Five files independently matched to original linux-7.2.9.tar.xz",
-  "files": [
+  "bases": [
     {
-      "file": "drivers/gpu/drm/i915/display/intel_psr.c",
-      "original_sha256": "2419eb1b1f2f03bffbe0a112755dc122dc6b42065219336c98b4b9660a2442a0",
-      "patched_sha256": "949a755dd4c4fd6229e577dcc6d7e3b81490f22455ffab7b5fb6cf55c046cade"
+      "id": "linux-7.2.9",
+      "source": "Five files independently matched to original linux-7.2.9.tar.xz",
+      "files": [
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_psr.c",
+          "original_sha256": "2419eb1b1f2f03bffbe0a112755dc122dc6b42065219336c98b4b9660a2442a0",
+          "patched_sha256": "949a755dd4c4fd6229e577dcc6d7e3b81490f22455ffab7b5fb6cf55c046cade"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_vrr.c",
+          "original_sha256": "ded95aea4810697bbc399b8cdfd6ec42d1e1c897321a2ec820fa52ad518223b5",
+          "patched_sha256": "2f7a22b805ef5741c6fa64fcc78a29b609b4923e340e1cf6fbeee720d9ef25c6"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_params.c",
+          "original_sha256": "202c2497429d1858eadd4d99f0f4df0c7ea05ff3a11de25ac9a87405353e4b8c",
+          "patched_sha256": "a9bd74f36515844b87b1b39b0270a99d0851967642c9ad306479cc719be50ab7"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_params.h",
+          "original_sha256": "169bdc84eb93d87d7dd62c3e640f494c0e75a8b5639b91848503eba3a058b6f3",
+          "patched_sha256": "1c4df23081a7fa2a9d2fc132467e482f2e4fb386bdb0dd5ddc4f7fa9c46d0f14"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_debugfs.c",
+          "original_sha256": "bd6c09a050dbad2243606968109f516ff6eb58a356c1a49ef5e4636d0886bd54",
+          "patched_sha256": "5e1463a946a0fd7beb604992093100747c45cf95b9fbed214e5da4dbda8ca12e"
+        }
+      ]
     },
     {
-      "file": "drivers/gpu/drm/i915/display/intel_vrr.c",
-      "original_sha256": "ded95aea4810697bbc399b8cdfd6ec42d1e1c897321a2ec820fa52ad518223b5",
-      "patched_sha256": "2f7a22b805ef5741c6fa64fcc78a29b609b4923e340e1cf6fbeee720d9ef25c6"
-    },
-    {
-      "file": "drivers/gpu/drm/i915/display/intel_display_params.c",
-      "original_sha256": "202c2497429d1858eadd4d99f0f4df0c7ea05ff3a11de25ac9a87405353e4b8c",
-      "patched_sha256": "a9bd74f36515844b87b1b39b0270a99d0851967642c9ad306479cc719be50ab7"
-    },
-    {
-      "file": "drivers/gpu/drm/i915/display/intel_display_params.h",
-      "original_sha256": "169bdc84eb93d87d7dd62c3e640f494c0e75a8b5639b91848503eba3a058b6f3",
-      "patched_sha256": "1c4df23081a7fa2a9d2fc132467e482f2e4fb386bdb0dd5ddc4f7fa9c46d0f14"
-    },
-    {
-      "file": "drivers/gpu/drm/i915/display/intel_display_debugfs.c",
-      "original_sha256": "bd6c09a050dbad2243606968109f516ff6eb58a356c1a49ef5e4636d0886bd54",
-      "patched_sha256": "5e1463a946a0fd7beb604992093100747c45cf95b9fbed214e5da4dbda8ca12e"
+      "id": "linux-7.2.10",
+      "source": "kernel-7.2.10-200.fc44.src.rpm, distro patch applied",
+      "files": [
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_psr.c",
+          "original_sha256": "2419eb1b1f2f03bffbe0a112755dc122dc6b42065219336c98b4b9660a2442a0",
+          "patched_sha256": "949a755dd4c4fd6229e577dcc6d7e3b81490f22455ffab7b5fb6cf55c046cade"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_vrr.c",
+          "original_sha256": "e0c39e63eeb144fa2a2e512f1566b6331a4d26f37e5c4167b0bae0f05f0a0f09",
+          "patched_sha256": "388a635a1b52c4a422a0be8ed61a1f9b1b786a1f340f19181580dc68d5e15764"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_params.c",
+          "original_sha256": "aa297da5960380232099285a5aac09138926c08eb7e1ae160d64d6efd8fadc8e",
+          "patched_sha256": "71dfd1b31a12394de7e4d5e8f306d6ba7ae465dba9fa5ae11c8ffc45e2d40a1b"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_params.h",
+          "original_sha256": "572edfee0a86da4b6cb44ac10eaf06e75e2d7eb09433a90edeea6ab4318d8fab",
+          "patched_sha256": "277f539b7995494b20451fd931a63296307c65b8f0020e8f0ae1eb1de7def3ce"
+        },
+        {
+          "file": "drivers/gpu/drm/i915/display/intel_display_debugfs.c",
+          "original_sha256": "bd6c09a050dbad2243606968109f516ff6eb58a356c1a49ef5e4636d0886bd54",
+          "patched_sha256": "5e1463a946a0fd7beb604992093100747c45cf95b9fbed214e5da4dbda8ca12e"
+        }
+      ]
     }
   ]
 }

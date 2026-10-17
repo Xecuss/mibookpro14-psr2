@@ -72,6 +72,15 @@ def main():
         patch = (ROOT / 'patches' / entry['file']).read_text()
         diff = patch[patch.index('diff --git '):].encode()
         require(hashlib.sha256(diff).hexdigest() == entry['diff_sha256'], 'Patch diff changed')
+    profiles = json.loads((ROOT / 'patches/source-files.json').read_text())['bases']
+    require({p['id'] for p in profiles} == {'linux-7.2.9', 'linux-7.2.10'}, 'Source profiles changed')
+    for profile in profiles:
+        require(len(profile['files']) == 5, 'Expected five source files per profile')
+        require(len({f['file'] for f in profile['files']}) == 5, 'Duplicate source fingerprint')
+        for item in profile['files']:
+            for key in ('original_sha256', 'patched_sha256'):
+                require(len(item[key]) == 64 and all(c in '0123456789abcdef' for c in item[key]),
+                        'Invalid source fingerprint')
     print(f'PASS: {total} power points, {registers} register snapshots, five tested patch bodies.')
 
 

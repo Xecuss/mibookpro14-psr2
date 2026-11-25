@@ -1,92 +1,90 @@
-# 小米 Book Pro 14 2026 Linux PSR2 区域对齐规避
+# Xiaomi Book Pro 14 (2026) Linux PSR2 Workaround
 
-在本机上通过扩大并对齐 PSR2 selective update（SU）区域，改善鼠标移动、快速输入和屏幕底部花屏，同时保留局部更新与静止自刷新。当前推荐实测配置：
+[简体中文](README.zh-CN.md)
+
+Experimental Linux kernel patches for the Xiaomi Book Pro 14 (2026) with Intel Arc B390 graphics. The workaround expands and aligns Panel Self Refresh 2 (PSR2) selective update (SU) regions. On the test laptop it reduced display corruption during mouse movement, rapid typing, and updates at the bottom of the screen while preserving partial updates and self-refresh when idle.
+
+The recommended setting for the tested configuration is:
 
 ```text
 xe.psr2_su_y_alignment=104
 ```
 
-**这是单机验证的实验性规避，根因仍未闭环。** 104参考了本机Windows底部104行更新范围，并非直接读出的Windows对齐参数。80也通过了已测场景，功耗测试未确定二者的优劣；选择104是因为已有完整恢复验收，并且用户更偏好这一Windows参考值。暂不提交上游、不扩展禁用PSR2的quirk。
+The cause of the corruption remains unknown. The 104-line setting was inspired by an update observed at the bottom of the display under Windows. The Windows driver's alignment setting was never read directly. An 80-line alignment also passed the scenarios tested with it. The 104-line alignment is preferred because it was also verified after resume. The power measurements do not establish a preference between 80 and 104.
 
-## 免责声明
+## Important information
 
-本项目仅在下述作者自用设备与环境中验证，按“现状”提供，不保证适用于其他机器、内核或显示模式，也不保证长期稳定、解决所有花屏场景或获得特定节电效果。
+This experimental workaround was tested on one laptop and is provided as is. Replacing a graphics kernel module or rebuilding the initramfs can cause a blank screen, a crash, a failure to start the graphical session, or data loss. Save your work, keep a bootable distribution kernel and a backup of the original module, and review the [build, installation, and rollback guide (Chinese)](docs/BUILD.md). See the [license](LICENSE) for warranty and liability terms.
 
-应用补丁、替换显卡内核模块及重建initramfs可能导致黑屏、系统崩溃、无法进入图形会话或数据丢失。使用前请保存工作，保留可启动的原发行版内核与原模块备份，并阅读[构建、安装与回退](docs/BUILD.md)。使用者应自行评估实验性修改的风险；许可中的保证排除与责任限制见[LICENSE](LICENSE)。
+## Tested configuration
 
-## 适用环境
+| Item | Configuration |
+| --- | --- |
+| Laptop | Xiaomi Book Pro 14 (2026), EDO OLED, 3120 × 2080 |
+| GPU | Intel Arc B390, PCI ID `8086:b080` rev 04, subsystem `1d72:2424` |
+| Main test environment | Fedora 44, `7.2.9-200.fc44.x86_64`, GNOME 50.5, Wayland, `xe` |
+| Kernel upgrade | `7.2.10-200.fc44.x86_64` booted with the patched module. PSR2, deep sleep, and agreement between SU and plane coordinates were verified. The tester reported no display corruption in daily use. |
+| Display | 120 Hz, with 200% scaling in the main 104-line test. Linux used HBR2 × 4, 18 bpp with dithering, and DSC disabled. |
+| Windows reference | Graphics driver `32.0.101.8359`, 3120 × 2080 at 120 Hz |
 
-| 项目 | 实测配置 |
-|---|---|
-| 设备 | 小米 Book Pro 14 2026，EDO OLED 3120×2080 |
-| GPU | Intel Arc B390，8086:b080 rev04，子系统1d72:2424 |
-| Linux完整实验 | Fedora 44，7.2.9-200.fc44.x86_64，GNOME 50.5 / Wayland / xe |
-| 升级验证 | 7.2.10-200.fc44.x86_64已安装启动，PSR2/DEEP_SLEEP与SU/plane一致性已确认；用户日常无花屏 |
-| 显示 | 120Hz；104主要功能测试200%缩放；Linux非DSC、HBR2×4、18bpp+dither |
-| Windows参考 | 驱动32.0.101.8359，3120×2080 / 120Hz |
+The repository provides patches for the shared i915 display code used by `xe`, along with diagnostic tools. Building requires a complete source and build tree for the target kernel. The repository distributes source patches only.
 
-其他内核、面板和显示模式未获得同等验证。这里修改的是xe使用的共享i915显示代码，不是独立的通用DKMS驱动。仓库提供补丁与采集工具，不分发预编译xe.ko。
+## Build and enable the workaround
 
-## 使用
+1. Follow the [build, installation, and rollback guide (Chinese)](docs/BUILD.md) to apply the patches, build `xe`, and install it for the target kernel. Rebuild the module for every kernel update.
+2. Once the patched module is installed, press **e** at the GRUB menu to edit the boot entry. Add `xe.psr2_su_y_alignment=104` or replace the existing alignment value. Remove `xe.enable_psr=1` if present, since it forces PSR1. Leave `xe.psr2_su_area_max_lines` unset and keep `xe.psr2_idle_frames=-1` and `xe.vrr_ctl_bit26=N` at their defaults.
+3. Press **Ctrl+X** to boot with these settings once. Keep refresh rate and scaling fixed during verification.
 
-1. 按[构建、安装与回退](docs/BUILD.md)，在与目标内核匹配的完整源码/构建树中应用补丁并构建xe模块。仅安装kernel-devel并添加参数，不会产生本补丁的功能。
-2. 已安装过本次调查中0006模块的原测试机器无需重装。下次在GRUB按e，将已有网格参数替换为104，Ctrl+X启动；这一步不持久修改GRUB。
-3. 删除强制PSR1的 `xe.enable_psr=1`，不设置旧 `xe.psr2_su_area_max_lines`（默认-1），保留idle_frames=-1、vrr_ctl_bit26=N，不同时修改刷新率或缩放。
-
-进入桌面可运行一次：
+After logging in, run:
 
 ```bash
 bash scripts/collect-display-config.sh
 ```
 
-确认PSR2 enabled，以及 `native_y_granularity=4, requested_y_alignment=104, DSC=no`。参数读回不等于已证明网格生效，还需看SU与plane范围；本机已有该证据，见[原理与实测结论](docs/FINDINGS.md)。更换内核后需重新构建，不能直接沿用另一版本的模块。
+Check that PSR2 is enabled and look for `native_y_granularity=4`, `requested_y_alignment=104`, and `DSC=no`. To verify that the hardware is using the alignment, inspect both the SU and plane update coordinates. See the [findings](docs/FINDINGS.md) and [retest procedure](docs/TESTING.md) (both in Chinese) for the observed ranges and collection steps.
 
-## 已验证的表现
+## Results on Linux 7.2.9
 
-下表与功耗数据均来自7.2.9。7.2.10保留了新内核默认关闭的VRR DC balance开关，未覆盖为旧逻辑；不能直接将旧版功耗结论视作新版实测。见[升级记录](docs/UPGRADING.md)。
+| Alignment | Mouse movement, typing, and bottom-of-screen corruption | Suspend and resume | Partial updates and idle self-refresh |
+| --- | --- | --- | --- |
+| 104 lines | No corruption observed | No corruption reported. Configuration and deep sleep checked afterward. | Partial update in 10 of 10 bottom-edge trials. Deep sleep in 3 of 3 idle trials. |
+| 80 lines | No corruption observed | Untested | Partial update in 10 of 10 bottom-edge trials. Deep sleep in 3 of 3 idle trials. |
 
-| 配置 | 普通鼠标 / 输入 / 底部 | 挂起恢复 | 局部更新与自刷新 |
-|---|---|---|---|
-| 104 | 均不花 | 用户确认不花，后续配置与深睡已确认 | 底部10/10 partial；静置3/3深睡 |
-| 80 | 均不花 | 未测 | 底部10/10 partial；静置3/3深睡 |
+The bottom-of-screen updates covered 104, 208, or 312 lines with the 104-line alignment and 80 or 160 lines with the 80-line alignment. Corruption was reported with 52 and 208 lines without matching logs. A 26-line request is expected to fall back to the native four-line granularity because it fails the alignment constraint.
 
-104下底部实际更新104、208、312行；80下为80、160行。52与208被用户报告花屏，但无配套日志；26不满足已知4行约束，预计退回原生4，不能计为有效26实验。稳定性不按网格大小单调变化。
+The 7.2.10 upgrade retained the kernel's default of disabling VRR DC balance. The measurements below are from 7.2.9. See the [upgrade notes (Chinese)](docs/UPGRADING.md).
 
-## 功耗结果
+## Power measurements
 
-以下均为整机电池遥测。功率读数按实际时间加权，另以电池能量差估算；每个条件只有一轮，不据此宣布精确节电比例。
+These figures come from whole-system battery telemetry. The power readings are time-weighted and the second estimate uses the change in reported battery energy. Each condition was tested once.
 
-| 场景 | 配置 | 功率读数均值 | 能量差折算均值 |
-|---|---|---:|---:|
-| 桌面静置，3分钟 | Linux PSR1 | 4.058 W | 3.780 W |
-| 桌面静置，3分钟 | Linux PSR2 + 104 | 3.958 W | 3.780 W |
-| 桌面静置，3分钟 | Windows参考 | 4.361 W | 5.040 W |
-| 同视频，4分钟 | Linux PSR1 | 9.489 W | 8.490 W |
-| 同视频，4分钟 | Linux PSR2 + 104 | 8.831 W | 8.250 W |
-| 同视频，4分钟 | Linux PSR2 + 80 | 9.118 W | 8.265 W |
+| Scenario | Configuration | Mean power reading | Mean from energy change |
+| --- | --- | ---: | ---: |
+| Desktop idle, 3 min | Linux PSR1 | 4.058 W | 3.780 W |
+| Desktop idle, 3 min | Linux PSR2 + 104 | 3.958 W | 3.780 W |
+| Desktop idle, 3 min | Windows reference | 4.361 W | 5.040 W |
+| Same video, 4 min | Linux PSR1 | 9.489 W | 8.490 W |
+| Same video, 4 min | Linux PSR2 + 104 | 8.831 W | 8.250 W |
+| Same video, 4 min | Linux PSR2 + 80 | 9.118 W | 8.265 W |
 
-104未显示明显额外空闲消耗；视频三轮倾向PSR2低于PSR1，但80与104能量消耗几乎相同。Windows实际亮度/HDR未匹配且遥测更新稀疏，不能宣称跨系统功耗等效或Linux更省电。详见[测试条件与全部限制](docs/POWER.md)，258个公开数值样本可用以下命令复算：
+The idle samples showed no clear increase with 104. In the video runs, PSR2 used less energy than PSR1, and the two PSR2 settings gave nearly identical energy estimates. The Windows reference used different brightness or HDR conditions and had sparse telemetry, limiting comparisons across operating systems. See the [test conditions and limitations (Chinese)](docs/POWER.md).
+
+To recompute the results from the 258 published samples:
 
 ```bash
 python3 scripts/verify-data.py
 ```
 
-## 文档与工具
+## Further documentation
 
-- [原理、证据及未知原因](docs/FINDINGS.md)：104从哪里来、区域怎样扩张，以及为什么不能归因于物理104行分区。
-- [功耗测试](docs/POWER.md)：静置、Windows参考和1080p60视频对照。
-- [简要调查过程](docs/HISTORY.md)：保留关键转折，完整实验日志不随仓库发布。
-- [内核升级](docs/UPGRADING.md)：按目标版本重建，区分构建、启动与PSR硬件验证。
-- [复测方法](docs/TESTING.md)：两步状态采集与有声音提示的4分钟视频功耗采集。
-- [补丁说明](patches/README.md)：保持实机测试过的0001/0002/0003/0005/0006组合，不含0004禁用quirk。
-- [仓库与后续更新](docs/PUBLISH.md)：GitHub地址及后续推送说明。
+- [Findings (Chinese)](docs/FINDINGS.md) covers the Windows observation, SU region expansion, and the open questions about the panel.
+- [Retest procedure (Chinese)](docs/TESTING.md) covers display-state capture and video power measurement.
+- [Investigation history (Chinese)](docs/HISTORY.md) traces the main experiments and decisions.
+- [Patch series (Chinese)](patches/README.md) describes patches 0001, 0002, 0003, 0005, and 0006 used on the test machine.
+- [Repository maintenance (Chinese)](docs/PUBLISH.md) records publication and update steps.
 
-## 贡献与AI使用说明
+## Credits and AI disclosure
 
-本项目由 **Xecuss、GPT-6.1 Sol和GLM-5.3** 协作完成：
-
-- **Xecuss**：确定目标，完成Linux与Windows实机操作、数据采集和视觉验证，并选择当前使用方案。
-- **GPT-6.1 Sol**：参与源码与补丁分析、采集工具编写、数据复核、结论修正及仓库整理。
-- **GLM-5.3**：参与前期问题分析与实验探索；早期部分推断已在后续证据复核中修正。
-
-以上署名说明参与过程，结论以公开数据与实际验证范围为准。新的发布用辅助脚本通过本地检查，不代表已经在新机器上安装或验证。
+- **Xecuss** set the goals, performed the Linux and Windows testing, collected the data, checked the visual results, and chose the current setting.
+- **GPT-6.1 Sol** contributed to source and patch analysis, data collection tools, review of the data and conclusions, and repository preparation.
+- **GLM-5.3** contributed to the initial investigation and experiments. Later review revised some of the early hypotheses.
